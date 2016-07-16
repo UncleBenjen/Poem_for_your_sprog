@@ -1,7 +1,4 @@
-# [react-router-redux-example](https://github.com/StevenIseki/react-router-redux-example)
-
-
-![](https://raw.githubusercontent.com/StevenIseki/react-router-redux-example/master/public/screenshot.png)
+# Tribute to Poem\_for\_your\_sprog
 
 
 
@@ -14,6 +11,7 @@
 * **react-router-redux** `4.0.2`
 * **redux** `3.5.1`
 * **redux-thunk** `2.0.1`
+* **material-ui**
 
 ## Run Dev
 
@@ -35,6 +33,9 @@ npm run build
 npm run start:prod
 open http://127.0.0.1:3000
 ```
+
+
+Built on: [react-router-redux-example](https://github.com/StevenIseki/react-router-redux-example)
 
 ## License
 
