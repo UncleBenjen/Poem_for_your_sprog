@@ -75,7 +75,7 @@ class App extends Component {
 
             <Section>{ this.props.loading ? <CircularProgress color={theme.palette.accent1Color} /> : this.props.children }</Section>
 
-            <Footer><p>Developed by Benjamin j. Speir  |  View on GitHub</p></Footer>
+            <Footer><p>Developed by <a href="http://benjaminspeir.com">Benjamin j. Speir</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="https://github.com/UncleBenjen/Poem_for_your_sprog">View on GitHub</a></p></Footer>
           </Viewport>
       );
     }

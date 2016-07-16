@@ -46,8 +46,8 @@ class Home extends Component {
       <div className={styles.home} style={{width:'100%',flex:'1 0 auto'}}>
           {poem}
           <div className={styles.navButtonContainer}>
-            <FlatButton onTouchTap={ (e) => { this.props.actions.prevComment(); window.scrollTo(0, 0) } } label="Prev" secondary={true} icon={<ArrowBack />}></FlatButton>
-            <FlatButton onTouchTap={ (e) => { this.props.actions.nextComment(); window.scrollTo(0, 0) } } label="Next" labelPosition="before" secondary={true} icon={<ArrowForward /> }></FlatButton>
+            <FlatButton disabled={this.props.id == 0} onTouchTap={ (e) => { this.props.actions.prevComment(); window.scrollTo(0, 0) } } label="Prev" secondary={true} icon={<ArrowBack />}></FlatButton>
+            <FlatButton disabled={this.props.id >= comments.length - 1} onTouchTap={ (e) => { this.props.actions.nextComment(); window.scrollTo(0, 0) } } label="Next" labelPosition="before" secondary={true} icon={<ArrowForward /> }></FlatButton>
 
           </div>
       </div>

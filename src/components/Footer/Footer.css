@@ -10,9 +10,12 @@
 .footer > p{
   
 }
-.footer > a{
-  
+.footer > p > a{
+  font-style: inherit;
+  font-size: inherit;
+  color:inherit;
+  font-weight: bold;
 }
-.footer > a:hover{
+.footer > p > a:hover{
   color:#c7c7c7;
 }

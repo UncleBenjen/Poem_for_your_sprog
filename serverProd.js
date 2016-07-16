@@ -8,6 +8,11 @@ import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 import { configureStore } from './src/store'
 import routes from './src/routes'
 
+// Needed for onTouchTap
+// http://stackoverflow.com/a/34015469/988941
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
+
 const app = express()
 app.use('/public', express.static(__dirname + '/public'))
 

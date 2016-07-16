@@ -1,5 +1,6 @@
 # Tribute to Poem\_for\_your\_sprog
 
+Built on: [react-router-redux-example](https://github.com/StevenIseki/react-router-redux-example)
 
 
 ## Dependencies
@@ -35,7 +36,6 @@ open http://127.0.0.1:3000
 ```
 
 
-Built on: [react-router-redux-example](https://github.com/StevenIseki/react-router-redux-example)
 
 ## License
 
