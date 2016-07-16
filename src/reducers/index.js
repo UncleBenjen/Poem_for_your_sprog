@@ -1,2 +1,1 @@
-export npmPackages from './npmPackages'
-export npmPackage from './npmPackage'
+export comments from './comments'

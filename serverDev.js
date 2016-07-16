@@ -7,12 +7,8 @@ import webpackConfig from './webpack.config.dev'
 const app = express();
 
 /* api endpoints */
-
-const npmPackages = require('./src/api/routes/npmPackages')
-app.use('/api/npmPackages', npmPackages)
-
-const npmPackage = require('./src/api/routes/npmPackage')
-app.use('/api/npmPackage', npmPackage)
+const comments = require('./src/api/routes/comments')
+app.use('/api/comments', comments)
 
 app.use(webpackDevMiddleware(webpack(webpackConfig), {
   publicPath: webpackConfig.output.publicPath,

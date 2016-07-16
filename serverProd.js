@@ -13,16 +13,19 @@ app.use('/public', express.static(__dirname + '/public'))
 
 /* api endpoints */
 
-import npmPackages from './src/api/routes/npmPackages'
-app.use('/api/npmPackages', npmPackages)
-
-import npmPackage from './src/api/routes/npmPackage'
-app.use('/api/npmPackage', npmPackage)
+import comments from './src/api/routes/comments'
+app.use('/api/comments', comments)
 
 const HTML = ({ content, store }) => (
   <html>
     <head>
+      <title>Poem_for_your_sprog_tribute</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="icon" type="image/png" href="/public/favicon.ico" />
+
       <link rel='stylesheet' type='text/css' href='/public/style.css' />
+      <link href="https://fonts.googleapis.com/css?family=Merriweather:400,900i|Raleway:300,400,700" rel="stylesheet"/>
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
     </head>
     <body>
       <div id='mount' dangerouslySetInnerHTML={{ __html: content }}/>
@@ -33,8 +36,11 @@ const HTML = ({ content, store }) => (
   </html>
 )
 
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import customTheme from './src/theme';
 
-app.use(function (req, res) {
+app.use(function (req, res, next) {
 
   const memoryHistory = createMemoryHistory(req.path)
   let store = configureStore(memoryHistory )
@@ -42,38 +48,51 @@ app.use(function (req, res) {
 
   /* react router match history */
   match({ history, routes , location: req.url }, (error, redirectLocation, renderProps) => {
+        if (error) {
+            return res.status(500).send(error);
+        }
 
-    if (error) {
-      res.status(500).send(error.message)
-    } else if (redirectLocation) {
-      res.redirect(302, redirectLocation.pathname + redirectLocation.search)
-    } else if (renderProps) {
+        if (redirectLocation) {
+            return res.redirect(302, redirectLocation.pathname + redirectLocation.search);
+        }
 
-      /* call static fetchData on the container component */
-      fetchData().then( ()=> {
-        store = configureStore(memoryHistory, store.getState() )
-        const content = renderToString(
-          <Provider store={store}>
-            <RouterContext {...renderProps}/>
-          </Provider>
-        )
-        res.send('<!doctype html>\n' + renderToString(<HTML content={content} store={store}/>))
-      }).catch(function (error) {
-        /* do something with error */
-        console.log(error.stack);
-      });
+        if (!renderProps) {
+            return next();
+        }
 
-      /* fetch data promise */
-      function fetchData () {
+       // Create the redux store.
+       // const store = createStore();
+
         let { query, params } = renderProps;
-        return new Promise(function(resolve, reject) {
-          let comp = renderProps.components[renderProps.components.length - 1].WrappedComponent;
-          let url = req.protocol + '://' + req.get('host')
-          resolve(comp.fetchData({ params, store, url }));
-        });
-      }
+        let url = req.protocol + '://' + req.get('host')
+        
+        customTheme.userAgent = req.headers['user-agent'];
 
-    }
+        // Retrieve the promises from React Router components that have a fetchData method.
+        //  We use this data to populate our store for server side rendering.
+        const fetchedData = renderProps.components
+            .filter(component => component.fetchData)
+            .map(component => component.fetchData({params, store, url}));
+
+        // Wait until ALL promises are successful before rendering.
+        Promise.all(fetchedData)
+            .then(() => {
+              const content = renderToString(
+                <MuiThemeProvider muiTheme={getMuiTheme(customTheme)}>
+                  <Provider store={store}>
+                    <RouterContext {...renderProps}/>
+                  </Provider>
+                </MuiThemeProvider>
+              )
+              res.send('<!doctype html>\n' + renderToString(<HTML content={content} store={store}/>))
+            })
+            .catch((err) => {
+                // TODO: Perform better error logging.
+                console.log(err);
+            });
+      
+
+    
   })
 
 })

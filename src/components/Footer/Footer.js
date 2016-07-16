@@ -5,10 +5,9 @@ export default class Footer extends Component {
 
   render () {
     return (
-    	<div className={styles.footer}>
-    		<span>made with </span>
-    		<div className={styles.heart}></div>
-    	</div>
+    	<footer className={styles.footer}>
+    		{this.props.children}
+    	</footer>
     )
   }
 

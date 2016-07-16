@@ -1,5 +1,5 @@
 {
-  "name": "poem_for_your_sprog tribute",
+  "name": "poem_for_your_sprog_tribute",
   "description": "A simple tribute to reddit user poem_for_your_sprog; search and sort through their top comments and insightful poetry. Based off Steven Iseki's react-router-redux-example.",
   "version": "1.0.1",
   "license": "MIT",
@@ -15,11 +15,13 @@
     "start:dev": "NODE_ENV=dev node server.js"
   },
   "dependencies": {
-    "react": "^15.0.1",
+    "material-ui": "^0.15.2",
+    "react": "^15.2.1",
     "react-dom": "^15.0.1",
     "react-redux": "^4.4.5",
     "react-router": "^2.3.0",
     "react-router-redux": "^4.0.2",
+    "react-tap-event-plugin": "^1.0.0",
     "redux": "^3.5.1",
     "redux-thunk": "^2.0.1"
   },

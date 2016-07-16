@@ -1,0 +1,43 @@
+nav.container{
+	width:100%;
+
+	display:flex;
+
+	flex-direction:row;
+	justify-content:space-between;
+
+	margin:16px;
+} 
+
+/* Larger than phablet */
+@media (min-width: 550px) {
+	nav.container{
+
+		margin:24px;
+	} 
+
+}
+
+/* Larger than tablet */
+@media (min-width: 750px) {
+	nav.container{
+		max-width: 700px;
+	} 
+
+}
+
+/* Larger than desktop */
+@media (min-width: 1000px) {
+	nav.container{
+		max-width: 850px;
+	} 
+
+}
+
+/* Larger than Desktop HD */
+@media (min-width: 1200px) {
+	nav.container{
+		max-width: 1000px;
+	} 
+
+}

@@ -1,27 +1,10 @@
 .home {
-  background-color: #fff;
-  margin-top: 230px;
-  margin-bottom: 150px;
-}
 
-.title {
-  text-align: center;
-  color: #61dafb;
 }
-
-.list {
-  margin: 0 auto;
-  width: 40%;
-}
-
-.row {
-  text-align: center;
-  padding-bottom: 10px;
-}
-
-.name {
-  color: #444;
-  font-size: 26px;
-  margin-bottom: 0px;
-  margin-top: 0px;  
+.navButtonContainer{
+  width:100%;
+  margin-bottom: 0 24px 24px 24px;
+  display:flex; 
+  flex-direction:row;
+  justify-content:space-between;
 }
