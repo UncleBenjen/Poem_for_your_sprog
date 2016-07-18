@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { Link } from 'react-router'
-
+import { routerActions } from 'react-router-redux'
 import * as actionCreators from '../actions/comments'
 import { connect } from 'react-redux'
 import Viewport from '../components/Viewport/Viewport'
 import Section from '../components/Section/Section'
 import Nav from '../components/Nav/Nav'
 import Footer from '../components/Footer/Footer'
+
+import appStyles from './App.css'
 
 /* generic styles */
 import styles from '../styles/base.css'
@@ -27,7 +29,7 @@ import CircularProgress from 'material-ui/CircularProgress';
 
 const customStyles = {
   menuWidth: {
-    width: 150,
+    width: 140,
   },
 };
 
@@ -56,15 +58,15 @@ class App extends Component {
 
               <div style={{marginLeft:'16px'}}>
                   <Link to="/" activeClassName=""><IconButton tooltip=""><ViewCarousel color={ this.props.currentRoute === "/" ? theme.palette.accent1Color : theme.palette.textColor }/></IconButton></Link>
-
                   <Link to="/list" activeClassName=""><IconButton tooltip=""><ViewList color={ this.props.currentRoute === "/list" ? theme.palette.accent1Color : theme.palette.textColor } /></IconButton></Link>
               </div>
-
+              <h1 className={appStyles.title} style={{ color:theme.palette.alternateTextColor }}>poem_for_your_sprog</h1>
+              <span style={{flex:'1 0 auto'}}></span>
               <div style={{marginRight:'16px'}}>
                 <SelectField
                     value={this.props.filter}
                     style={customStyles.menuWidth}
-                    onChange={ (event, index, value) => { this.props.actions.changeFilter(location.origin, value) } }>
+                    onChange={ (event, index, value) => { this.props.actions.changeFilter(location.origin, value); this.props.routerActions.push("list") } }>
                     <MenuItem value="new" primaryText="New" />
                     <MenuItem value="top" primaryText="Top" />
                     <MenuItem value="controversial" primaryText="Controversial" />
@@ -75,7 +77,13 @@ class App extends Component {
 
             <Section>{ this.props.loading ? <CircularProgress color={theme.palette.accent1Color} /> : this.props.children }</Section>
 
-            <Footer><p>Developed by <a href="http://benjaminspeir.com">Benjamin j. Speir</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="https://github.com/UncleBenjen/Poem_for_your_sprog">View on GitHub</a></p></Footer>
+            <Footer>
+              <p>
+                <span>Developed by <a href="http://benjaminspeir.com">Benjamin j. Speir</a></span>
+                <span><a href="https://github.com/UncleBenjen/Poem_for_your_sprog">View on GitHub</a></span>
+              </p>
+            </Footer>
+
           </Viewport>
       );
     }
@@ -92,7 +100,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return { actions: bindActionCreators(actionCreators, dispatch) }
+  return { actions: bindActionCreators(actionCreators, dispatch), routerActions: bindActionCreators(routerActions, dispatch) }
 }
 
 module.exports = connect(

@@ -11,8 +11,8 @@
 }
 .poemText{
     white-space: pre-wrap;
-    font-family: 'Merriweather serif';
-    font-weight: 400;
+    font-family: 'Roboto';
+    font-weight: 300;
     font-size: 18px; 
     line-height: 1;
 }
@@ -22,9 +22,7 @@
     .poemTitle{
         font-size: 32px; 
     }
-    .poemText{
-        font-size: 22px; 
-    }
+
 }
 
 /* Larger than tablet */
@@ -43,5 +41,7 @@
 
 /* Larger than Desktop HD */
 @media (min-width: 1200px) {
-
+    .poemText{
+        font-size: 22px; 
+    }
 }

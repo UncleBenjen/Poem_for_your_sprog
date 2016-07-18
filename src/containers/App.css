@@ -1,0 +1,16 @@
+.title{
+	display:none;
+}
+
+
+/* Larger than phablet */
+@media (min-width: 550px) {
+    .title{
+    	display: initial;
+        margin:0 0 0 8px;
+		font-family:'Roboto';
+		font-weight: 300;
+		font-size:26px;
+    }
+
+}

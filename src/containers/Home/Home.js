@@ -38,7 +38,7 @@ class Home extends Component {
       /* npm packages not loaded yet... */
     } else {
 
-      poem = <Poem title={comments[this.props.id].parent_thread.title} posted={timeSincePosted(comments[this.props.id].created)} content={comments[this.props.id].body} author="Poem_for_your_sprog" />
+      poem = <Poem title={comments[this.props.id].parent_thread.title} points={comments[this.props.id].score + ' points'} posted={timeSincePosted(comments[this.props.id].created)} content={comments[this.props.id].body} author="Poem_for_your_sprog" />
       
     }
 

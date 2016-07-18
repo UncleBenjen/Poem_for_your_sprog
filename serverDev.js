@@ -1,3 +1,5 @@
+require("babel-polyfill");
+
 import path from 'path'
 import express from 'express'
 import webpack from 'webpack'
@@ -23,11 +25,11 @@ app.get('*', function(req, res) {
 });
 
 
-app.listen(3000, 'localhost', function (err) {
+app.listen(5000, function (err) {
   if (err) {
     console.log(err);
     return;
   }
 
-  console.log('listening on http://127.0.0.1:3000')
+  console.log('listening on http://127.0.0.1:5000')
 })

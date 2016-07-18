@@ -38,7 +38,7 @@ function update(state = initialState, action) {
 			return Object.assign({}, state, { list: list, loading: false } )
 
 		case constants.CHANGE_FILTER:
-			return Object.assign({}, state, { filter: action.filter, loading: true } )
+			return Object.assign({}, state, { selected: 0, filter: action.filter, loading: true } )
 
 		case constants.SELECT_COMMENT:
 			return Object.assign({}, state, { selected: action.id })
@@ -52,7 +52,7 @@ function update(state = initialState, action) {
 			return Object.assign({}, state, { selected: next_index })
 
 		case constants.PREV_COMMENT:
-		
+
 			let prev_index = state.selected
 			if (state.selected != 0){
 				prev_index--

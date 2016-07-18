@@ -1,3 +1,5 @@
+require("babel-polyfill");
+
 import express from 'express'
 import serialize from 'serialize-javascript'
 import React from 'react'
@@ -29,7 +31,7 @@ const HTML = ({ content, store }) => (
       <link rel="icon" type="image/png" href="/public/favicon.ico" />
 
       <link rel='stylesheet' type='text/css' href='/public/style.css' />
-      <link href="https://fonts.googleapis.com/css?family=Merriweather:400,900i|Raleway:300,400,700" rel="stylesheet"/>
+      <link href="https://fonts.googleapis.com/css?family=Merriweather:900i|Roboto:300,400,500" rel="stylesheet" />
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
     </head>
     <body>
@@ -103,10 +105,10 @@ app.use(function (req, res, next) {
 })
 
 
-app.listen(3000, 'localhost', function (err) {
+app.listen(5000, function (err) {
   if (err) {
     console.log(err);
     return;
   }
-  console.log('listening on http://127.0.0.1:3000')
+  console.log('listening on http://127.0.0.1:5000')
 })

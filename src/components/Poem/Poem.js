@@ -13,9 +13,8 @@ class Poem extends Component {
   		<div className={styles.poemContainer}>
   			<h2 className={styles.poemTitle} style={{ color:theme.palette.textColor }}>{ this.props.title }</h2>
   			<div className={styles.poemText} style={{ color:theme.palette.textColor }} dangerouslySetInnerHTML={{ __html:this.props.content }}></div>
-  			<span style={{ fontFamily: 'Raleway', color:theme.palette.alternateTextColor, fontSize: '18px' }}>{this.props.posted}</span>
-  			<br/>
-  			<span style={{ fontFamily: 'Raleway', color: theme.palette.primary1Color , fontSize: '18px' }}>{this.props.author}</span>
+  			<p style={{ fontFamily: 'Roboto', color: theme.palette.primary1Color , fontSize: '18px', margin: '8px 0' }}>{this.props.author}</p>
+  			<p style={{ fontFamily: 'Roboto', color:theme.palette.alternateTextColor, fontSize: '18px', margin: '8px 0' }}>{this.props.points}&nbsp;|&nbsp;{this.props.posted}</p>
   		</div>)
   	}
 
