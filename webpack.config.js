@@ -14,8 +14,7 @@ module.exports = {
       'react-router',
       'react-router-redux',
       'redux',
-      'redux-thunk',
-      'react-tap-event-plugin'
+      'redux-thunk'
     ]
   },
   output: {
@@ -30,11 +29,10 @@ module.exports = {
         test: /\.css$/i,
         loader: ExtractTextPlugin.extract('style',
           `css?modules&localIdentName=[name]_[local]__[hash:base64:5]!postcss`),
-      }
-    ]
+      }]
   },
   postcss: [ 
-    autoprefixer({ browsers: ['last 2 versions'] }) 
+    autoprefixer({ browsers: ['last 4 versions', 'iOS 6', '> 5%'] }) 
   ],
   plugins: [
     new ExtractTextPlugin('style.css', { allChunks: true }),
