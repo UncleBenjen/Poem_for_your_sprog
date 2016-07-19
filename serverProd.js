@@ -29,7 +29,7 @@ const HTML = ({ content, store }) => (
   <html>
     <head>
       <title>Poem_for_your_sprog_tribute</title>
-      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
       <link rel="icon" type="image/png" href="/public/favicon.ico" />
 
       <link rel='stylesheet' type='text/css' href='/public/style.css' />

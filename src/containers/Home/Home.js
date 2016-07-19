@@ -21,7 +21,7 @@ class Home extends Component {
   
   static fetchData({ params, store, url }) {
     let state = store.getState()
-    if(state.comments.list){
+    if(state.comments.list.length > 0){
       let thread_info = state.comments.list[state.comments.selected].parent_thread.url.split('/')
       return store.dispatch( actionCreators.fetchParentComment(url, thread_info[4], thread_info[6],  thread_info[7], state.comments.list[state.comments.selected].parent_comment.id) )
     }
