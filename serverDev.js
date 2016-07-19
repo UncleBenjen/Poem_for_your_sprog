@@ -12,6 +12,9 @@ const app = express();
 const comments = require('./src/api/routes/comments')
 app.use('/api/comments', comments)
 
+const comment = require('./src/api/routes/comment')
+app.use('/api/parent', comment)
+
 app.use(webpackDevMiddleware(webpack(webpackConfig), {
   publicPath: webpackConfig.output.publicPath,
   stats: { colors: true }

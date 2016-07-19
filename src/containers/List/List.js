@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 
 import styles from './List.css'
 import { isEmpty, timeSincePosted } from '../../utils'
+import { fade } from 'material-ui/utils/colorManipulator';
 import { Link } from 'react-router'
 
 import { bindActionCreators } from 'redux'
@@ -17,6 +18,9 @@ import {amber500} from 'material-ui/styles/colors';
 import Badge from 'material-ui/Badge';
 import Subheader from 'material-ui/Subheader';
 
+const highlight = {
+  backgroundColor:fade(theme.palette.accent1Color,0.4)
+}
 
 class CommentList extends Component {
 
@@ -48,10 +52,12 @@ class CommentList extends Component {
     } else {
 
       let select = this.selectComment
+      let id = this.props.selected
 
       comments = (this.props.comments.map(function(comment, index){
         let listItem = comment.gilded ? 
                 <ListItem  
+                style={index === id ? highlight : null }
                 onClick={ (e) => { select(index) }}
                 key={comment.id}
                 primaryText={comment.parent_thread.title}
@@ -59,7 +65,8 @@ class CommentList extends Component {
                 leftIcon={ comment.gilded > 1 ? <Badge badgeStyle={{top:'40px', right:'8px', backgroundColor:theme.palette.primary1Color}} style={{top:'-8px', margin:0}} badgeContent={'x'+comment.gilded}><Stars style={{width:'32px', height:'32px'
               }}  /></Badge> : <Stars color={theme.palette.textColor} style={{top:'6px', width:'32px', height:'32px'}} /> }/>
           :  <ListItem  
-               onClick={ (e) => { select(index) }}
+                style={index === id ? highlight : null }
+                onClick={ (e) => { select(index) }}
                 key={comment.id}
                 primaryText={comment.parent_thread.title}
                 secondaryText={<span style={{color:theme.palette.alternateTextColor}}>{comment.score + ' points.'}</span>}
@@ -75,7 +82,8 @@ class CommentList extends Component {
 
 function mapStateToProps(state) {
   return { 
-    comments: state.comments.list
+    comments: state.comments.list,
+    selected: state.comments.selected
   }
 }
 

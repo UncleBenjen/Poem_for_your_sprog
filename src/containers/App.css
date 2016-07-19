@@ -1,7 +1,18 @@
 .title{
 	display:none;
 }
-
+.filterMenu{
+	width:140px;
+}
+ .stretch{
+ 	flex:1 0 auto;
+ }
+ .leftMargin{ 
+ 	margin-left:16px;
+ }
+ .rightMargin{
+ 	margin-right:16px;
+ }
 
 /* Larger than phablet */
 @media (min-width: 550px) {

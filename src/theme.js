@@ -19,7 +19,7 @@ export default {
     accent3Color: grey500,
     textColor: '#C7C7C7',
     alternateTextColor: darken('#C7C7C7',0.3),
-    canvasColor: '#696969',
+    canvasColor: darken('#172E44', 0.3),
     borderColor: grey300,
     disabledColor: fade(darkBlack, 0.3),
     pickerHeaderColor: cyan500,

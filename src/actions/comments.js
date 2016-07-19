@@ -19,18 +19,18 @@ function receiveComments(json) {
   }
 }
 /****/
-function fetchComment(url, depth = 1){
+function fetchParentComment(url, subreddit, thread_id, thread_name, comment_id){
   return dispatch => {
-    dispatch({ type: constants.FETCH_COMMENTS_COMMENT })
-    return fetch(url + '/api/comments?sort=' + sort)
+    dispatch({ type: constants.FETCH_PARENT_COMMENT })
+    return fetch(url + '/api/parent/' + subreddit + '/' + thread_id + '/' + thread_name + '/' + comment_id + '/')
       .then(req => req.json())
-      .then(json => dispatch(receiveComments(json)))
+      .then(json => dispatch(receiveParentComment(json)))
   }
 }
 
-function receiveComment(json){
+function receiveParentComment(json){
   return {
-    type: constants.RECEIVE_COMMENT,
+    type: constants.RECEIVE_PARENT_COMMENT,
     json: json,
     receivedAt: Date.now()
   }
@@ -58,7 +58,6 @@ function selectComment(id){
 }
 
 function nextComment(){
-
   return{type: constants.NEXT_COMMENT}
 }
 function prevComment(){
@@ -66,4 +65,4 @@ function prevComment(){
   return{type: constants.PREV_COMMENT}
 }
 
-module.exports = { fetchComments, receiveComments, fetchComment, receiveComment, selectComment, changeFilter, nextComment, prevComment }
+module.exports = { fetchComments, receiveComments, fetchParentComment, receiveParentComment, selectComment, changeFilter, nextComment, prevComment }

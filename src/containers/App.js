@@ -27,12 +27,6 @@ import MenuItem from 'material-ui/MenuItem';
 
 import CircularProgress from 'material-ui/CircularProgress';
 
-const customStyles = {
-  menuWidth: {
-    width: 140,
-  },
-};
-
 class App extends Component {
     static fetchData({ params, store, url }) {
       return store.dispatch( actionCreators.fetchComments(url) )
@@ -56,17 +50,23 @@ class App extends Component {
 
             <Nav>
 
-              <div style={{marginLeft:'16px'}}>
+              <div className={appStyles.leftMargin}>
                   <Link to="/" activeClassName=""><IconButton tooltip=""><ViewCarousel color={ this.props.currentRoute === "/" ? theme.palette.accent1Color : theme.palette.textColor }/></IconButton></Link>
                   <Link to="/list" activeClassName=""><IconButton tooltip=""><ViewList color={ this.props.currentRoute === "/list" ? theme.palette.accent1Color : theme.palette.textColor } /></IconButton></Link>
               </div>
-              <h1 className={appStyles.title} style={{ color:theme.palette.alternateTextColor }}>poem_for_your_sprog</h1>
-              <span style={{flex:'1 0 auto'}}></span>
-              <div style={{marginRight:'16px'}}>
+
+              <h1 className={appStyles.title} style={{ color:theme.palette.alternateTextColor }}>/u/poem_for_your_sprog</h1>
+
+              <span className={appStyles.stretch} ></span>
+
+              <div className={appStyles.rightMargin}>
                 <SelectField
                     value={this.props.filter}
-                    style={customStyles.menuWidth}
-                    onChange={ (event, index, value) => { this.props.actions.changeFilter(location.origin, value); this.props.routerActions.push("list") } }>
+                    style={{width:140}}
+                    onChange={ (event, index, value) => { 
+                      this.props.actions.changeFilter(location.origin, value); 
+                      this.props.routerActions.push("list"); 
+                    } }>
                     <MenuItem value="new" primaryText="New" />
                     <MenuItem value="top" primaryText="Top" />
                     <MenuItem value="controversial" primaryText="Controversial" />
@@ -75,11 +75,13 @@ class App extends Component {
 
             </Nav>    
 
-            <Section>{ this.props.loading ? <CircularProgress color={theme.palette.accent1Color} /> : this.props.children }</Section>
+            <Section>
+            { this.props.loading ? <CircularProgress color={theme.palette.accent1Color} /> : this.props.children }
+            </Section>
 
             <Footer>
               <p>
-                <span>Developed by <a href="http://benjaminspeir.com">Benjamin j. Speir</a></span>
+                <span>Developed by <a href="http://benjaminspeir.com">Benjamin Speir</a></span>
                 <span><a href="https://github.com/UncleBenjen/Poem_for_your_sprog">View on GitHub</a></span>
               </p>
             </Footer>

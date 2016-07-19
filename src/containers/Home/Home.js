@@ -2,20 +2,32 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
+import { routerActions } from 'react-router-redux'
 import * as actionCreators from '../../actions/comments'
 import styles from './Home.css'
 import { isEmpty, timeSincePosted } from '../../utils'
+import theme from '../../theme'
 
+import Comment from '../../components/Comment/Comment'
+
+
+import CircularProgress from 'material-ui/CircularProgress';
 import FlatButton from 'material-ui/FlatButton';
 
 import ArrowForward from 'material-ui/svg-icons/navigation/arrow-forward';
 import ArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
-import Poem from '../../components/Poem/Poem'
 
 class Home extends Component {
   
   static fetchData({ params, store, url }) {
-    return store.dispatch( actionCreators.fetchComments(url) )
+    let state = store.getState()
+    if(state.comments.list){
+      let thread_info = state.comments.list[state.comments.selected].parent_thread.url.split('/')
+      return store.dispatch( actionCreators.fetchParentComment(url, thread_info[4], thread_info[6],  thread_info[7], state.comments.list[state.comments.selected].parent_comment.id) )
+    }
+    else{
+      return
+    }
   }
 
   constructor (props) {
@@ -23,32 +35,39 @@ class Home extends Component {
   }
 
   componentDidMount () {
-    if(!this.props.loading && this.props.comments.length == 0){
-      this.props.actions.fetchComments(location.origin)
+    if(this.props.comment){
+      
+      if(!this.props.comment.parent_comment.body){
+        let params = this.props.comment.parent_thread.url.split('/')
+        this.props.actions.fetchParentComment(location.origin, params[4], params[6], params[7], this.props.comment.parent_comment.id)
+      }
     }
     
   }
 
   render () {
 
-    const { comments } = this.props
     let poem = null
+    let parent = null
+    let title = null
 
-    if( isEmpty(comments) ){
-      /* npm packages not loaded yet... */
-    } else {
+    if( !isEmpty(this.props.comment) ){
+      title = this.props.comment.parent_thread.title
 
-      poem = <Poem title={comments[this.props.id].parent_thread.title} points={comments[this.props.id].score + ' points'} posted={timeSincePosted(comments[this.props.id].created)} content={comments[this.props.id].body} author="Poem_for_your_sprog" />
-      
+      poem = <Comment points={this.props.comment.score + ' points'} posted={timeSincePosted(this.props.comment.created)} content={this.props.comment.body} author="Poem_for_your_sprog" />
+      if(this.props.comment.parent_comment.body){
+         parent = <Comment points={this.props.comment.parent_comment.score + ' points'} posted={timeSincePosted(this.props.comment.parent_comment.created)} content={this.props.comment.parent_comment.body} author={this.props.comment.parent_comment.author} />
+      }
     }
 
     return (
-      <div className={styles.home} style={{width:'100%',flex:'1 0 auto'}}>
+      <div className={styles.home}>
+          <h2 className={styles.title} style={{ color:theme.palette.textColor }}>{ title }</h2>
+          { this.props.loadingParent ? <CircularProgress size={0.5} style={{alignSelf:'center'}}/> : parent}
           {poem}
           <div className={styles.navButtonContainer}>
-            <FlatButton disabled={this.props.id == 0} onTouchTap={ (e) => { this.props.actions.prevComment(); window.scrollTo(0, 0) } } label="Prev" secondary={true} icon={<ArrowBack />}></FlatButton>
-            <FlatButton disabled={this.props.id >= comments.length - 1} onTouchTap={ (e) => { this.props.actions.nextComment(); window.scrollTo(0, 0) } } label="Next" labelPosition="before" secondary={true} icon={<ArrowForward /> }></FlatButton>
-
+            <FlatButton disabled={this.props.id == 0} onClick={ (e) => { this.props.actions.prevComment(); window.scrollTo(0, 0) } } label="Prev" secondary={true} icon={<ArrowBack />}></FlatButton>
+            <FlatButton disabled={this.props.id >= this.props.numOfComments - 1} onClick={ (e) => { this.props.actions.nextComment(); window.scrollTo(0, 0) } } label="Next" labelPosition="before" secondary={true} icon={<ArrowForward /> }></FlatButton>
           </div>
       </div>
     )
@@ -57,15 +76,17 @@ class Home extends Component {
 
 function mapStateToProps(state) {
   return { 
-    comments: state.comments.list,
-    loading: state.comments.loading,
+    comment: state.comments.list[state.comments.selected],
+    numOfComments: state.comments.list.length,
+    loadingParent: state.comments.subloading,
     id: state.comments.selected
   }
 }
 
 function mapDispatchToProps(dispatch){
   return{
-    actions: bindActionCreators(actionCreators, dispatch)
+    actions: bindActionCreators(actionCreators, dispatch),
+    routerActions: bindActionCreators(routerActions, )
   }
 }
 
