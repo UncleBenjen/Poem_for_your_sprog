@@ -1,5 +1,3 @@
-require("babel-polyfill");
-
 import path from 'path'
 import express from 'express'
 import webpack from 'webpack'

@@ -1,5 +1,3 @@
-require("babel-polyfill");
-
 import express from 'express'
 import serialize from 'serialize-javascript'
 import React from 'react'
